@@ -1,0 +1,36 @@
+:root {
+  /* Backgrounds */
+  --bg-void: #0a0e14;
+  --bg-panel: #11171f;
+  --bg-elevated: #1a2230;
+
+  /* Borders */
+  --border-subtle: #1f2937;
+  --border-active: #2a3a52;
+
+  /* Accent */
+  --accent-cyan: #00b3d6;
+  --accent-cyan-dim: #007a94;
+  --accent-glow: #00d4ff;
+
+  /* Text */
+  --text-primary: #e6edf3;
+  --text-secondary: #8b97a8;
+  --text-disabled: #4a5568;
+
+  /* Status */
+  --status-ready: #00d97e;
+  --status-delivery: #f5a623;
+  --status-destroyed: #e64545;
+  --status-stored: #6b7280;
+
+  /* Fonts */
+  --font-aldrich: 'Aldrich', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Layout */
+  --nav-height: 56px;
+  --fab-size: 56px;
+  --fab-offset: 16px;
+}
