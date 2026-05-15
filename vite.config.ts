@@ -4,7 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import path from 'path'
 
 export default defineConfig({
-  base: '/sc-companion/',
+  base: '/SC-Companion/',
   plugins: [
     react(),
     VitePWA({
@@ -17,8 +17,8 @@ export default defineConfig({
         theme_color: '#00b3d6',
         background_color: '#0a0e14',
         display: 'standalone',
-        start_url: '/sc-companion/#/hangar',
-        scope: '/sc-companion/',
+        start_url: '/SC-Companion/#/hangar',
+        scope: '/SC-Companion/',
         icons: [
           {
             src: 'pwa-icon-192.png',
