@@ -13,6 +13,7 @@ function emptyAppData(): AppData {
     inventory: [],
     mining: [],
     cargo: [],
+    missions: [],
     meta: { createdAt: now, lastModifiedAt: now },
   }
 }

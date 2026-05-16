@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { label: 'CRAFTING', path: '/crafting', enabled: false },
   { label: 'CARGO', path: '/cargo', enabled: true },
   { label: 'MINING', path: '/mining', enabled: true },
-  { label: 'MISSIONS', path: '/missions', enabled: false },
+  { label: 'MISSIONS', path: '/missions', enabled: true },
 ]
 
 interface TopNavProps {

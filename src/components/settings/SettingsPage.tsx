@@ -174,6 +174,7 @@ export function SettingsPage() {
             inventory: [],
             mining: [],
             cargo: [],
+            missions: [],
             meta: { createdAt: new Date().toISOString(), lastModifiedAt: new Date().toISOString() },
           })
         }}

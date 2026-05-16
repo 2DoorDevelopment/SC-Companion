@@ -6,6 +6,7 @@ import { ComingSoon } from './components/layout/ComingSoon'
 import { InventoryPage } from './components/inventory/InventoryPage'
 import { MiningPage } from './components/mining/MiningPage'
 import { CargoPage } from './components/cargo/CargoPage'
+import { MissionsPage } from './components/missions/MissionsPage'
 
 export default function App() {
   return (
@@ -19,7 +20,7 @@ export default function App() {
           <Route path="crafting" element={<ComingSoon module="Crafting" />} />
           <Route path="cargo" element={<CargoPage />} />
           <Route path="mining" element={<MiningPage />} />
-          <Route path="missions" element={<ComingSoon module="Missions" />} />
+          <Route path="missions" element={<MissionsPage />} />
         </Route>
       </Routes>
     </HashRouter>

@@ -187,6 +187,72 @@ export function cargoProfit(entry: CargoEntry): number | null {
   return (entry.sellPricePerSCU - entry.buyPricePerSCU) * entry.quantitySCU
 }
 
+// ── Missions ──────────────────────────────────────────────────────────────────
+
+export const MissionTypeSchema = z.enum([
+  'delivery', 'bounty', 'search_destroy', 'cargo', 'investigation',
+  'rescue', 'assassination', 'escort', 'patrol', 'data_running', 'other',
+])
+export type MissionType = z.infer<typeof MissionTypeSchema>
+
+export const MissionStatusSchema = z.enum(['active', 'completed', 'failed', 'abandoned'])
+export type MissionStatus = z.infer<typeof MissionStatusSchema>
+
+export const MISSION_TYPE_LABELS: Record<MissionType, string> = {
+  delivery: 'Delivery',
+  bounty: 'Bounty',
+  search_destroy: 'Search & Destroy',
+  cargo: 'Cargo',
+  investigation: 'Investigation',
+  rescue: 'Rescue',
+  assassination: 'Assassination',
+  escort: 'Escort',
+  patrol: 'Patrol',
+  data_running: 'Data Running',
+  other: 'Other',
+}
+
+export const MISSION_STATUS_LABELS: Record<MissionStatus, string> = {
+  active: 'Active',
+  completed: 'Completed',
+  failed: 'Failed',
+  abandoned: 'Abandoned',
+}
+
+export const COMMON_FACTIONS = [
+  'Advocacy', 'ArcCorp', 'Bounty Hunters Guild', 'Crusader Industries',
+  'Crime Stoppers', 'Covalex', 'Governors Office', 'Hurston Dynamics',
+  'MicroTech', 'Mining & Salvage', 'Nine Tails', 'Recco Battaglia',
+  'Rough & Ready', 'Shubin Interstellar', 'Xenothreat',
+]
+
+export const MissionSchema = z.object({
+  id: z.string().uuid(),
+  title: z.string().min(1),
+  type: MissionTypeSchema,
+  faction: z.string().optional(),
+  payoutUEC: z.number().min(0),
+  status: MissionStatusSchema,
+  location: z.string().optional(),
+  expiresAt: z.string().optional(),
+  notes: z.string().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+})
+export type Mission = z.infer<typeof MissionSchema>
+
+export const MissionFormSchema = z.object({
+  title: z.string().min(1, 'Title is required'),
+  type: MissionTypeSchema,
+  faction: z.string().optional(),
+  payoutUEC: z.coerce.number().min(0),
+  status: MissionStatusSchema,
+  location: z.string().optional(),
+  expiresAt: z.string().optional(),
+  notes: z.string().optional(),
+})
+export type MissionFormValues = z.infer<typeof MissionFormSchema>
+
 export const AppDataSchema = z.object({
   schemaVersion: z.literal(1),
   exportedAt: z.string().optional(),
@@ -194,6 +260,7 @@ export const AppDataSchema = z.object({
   inventory: z.array(InventoryItemSchema).default([]),
   mining: z.array(MiningRunSchema).default([]),
   cargo: z.array(CargoEntrySchema).default([]),
+  missions: z.array(MissionSchema).default([]),
   meta: z.object({
     createdAt: z.string(),
     lastModifiedAt: z.string(),
