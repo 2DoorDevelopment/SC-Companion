@@ -172,6 +172,7 @@ export function SettingsPage() {
             schemaVersion: 1,
             hangar: [],
             inventory: [],
+            mining: [],
             meta: { createdAt: new Date().toISOString(), lastModifiedAt: new Date().toISOString() },
           })
         }}

@@ -10,7 +10,7 @@ const NAV_ITEMS = [
   { label: 'INVENTORY', path: '/inventory', enabled: true },
   { label: 'CRAFTING', path: '/crafting', enabled: false },
   { label: 'CARGO', path: '/cargo', enabled: false },
-  { label: 'MINING', path: '/mining', enabled: false },
+  { label: 'MINING', path: '/mining', enabled: true },
   { label: 'MISSIONS', path: '/missions', enabled: false },
 ]
 

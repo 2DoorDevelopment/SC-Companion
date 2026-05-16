@@ -68,11 +68,76 @@ export const InventoryItemFormSchema = z.object({
 
 export type InventoryItemFormValues = z.infer<typeof InventoryItemFormSchema>
 
+// ── Mining ────────────────────────────────────────────────────────────────────
+
+export const MiningMethodSchema = z.enum(['ship', 'fps', 'vehicle'])
+export type MiningMethod = z.infer<typeof MiningMethodSchema>
+
+export const MiningStatusSchema = z.enum(['raw', 'refining', 'ready', 'collected'])
+export type MiningStatus = z.infer<typeof MiningStatusSchema>
+
+export const MINING_METHOD_LABELS: Record<MiningMethod, string> = {
+  ship: 'Ship Mining',
+  fps: 'FPS Mining',
+  vehicle: 'ROC Mining',
+}
+
+export const MINING_STATUS_LABELS: Record<MiningStatus, string> = {
+  raw: 'Raw',
+  refining: 'Refining',
+  ready: 'Ready',
+  collected: 'Collected',
+}
+
+export const COMMON_MINERALS = [
+  'Quantanium', 'Bexalite', 'Taranite', 'Borase', 'Laranite',
+  'Gold', 'Diamond', 'Agricium', 'Hephaestanite', 'Stileron',
+  'Copper', 'Titanium', 'Corundum', 'Beryl', 'Aphorite', 'Hadanite',
+]
+
+export const MineralYieldSchema = z.object({
+  mineral: z.string().min(1),
+  quantitySCU: z.coerce.number().min(0),
+})
+export type MineralYield = z.infer<typeof MineralYieldSchema>
+
+export const MiningRunSchema = z.object({
+  id: z.string().uuid(),
+  date: z.string(),
+  location: z.string().min(1),
+  method: MiningMethodSchema,
+  ship: z.string().optional(),
+  minerals: z.array(MineralYieldSchema).default([]),
+  status: MiningStatusSchema,
+  refineryLocation: z.string().optional(),
+  refineStartedAt: z.string().optional(),
+  refineReadyAt: z.string().optional(),
+  notes: z.string().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+})
+export type MiningRun = z.infer<typeof MiningRunSchema>
+
+export const MiningRunFormSchema = z.object({
+  date: z.string().min(1, 'Date is required'),
+  location: z.string().min(1, 'Location is required'),
+  method: MiningMethodSchema,
+  ship: z.string().optional(),
+  minerals: z.array(MineralYieldSchema),
+  status: MiningStatusSchema,
+  refineryLocation: z.string().optional(),
+  refineStartedAt: z.string().optional(),
+  refineReadyAt: z.string().optional(),
+  notes: z.string().optional(),
+})
+export type MiningRunFormValues = z.infer<typeof MiningRunFormSchema>
+
 export const AppDataSchema = z.object({
   schemaVersion: z.literal(1),
   exportedAt: z.string().optional(),
   hangar: z.array(ShipSchema),
   inventory: z.array(InventoryItemSchema).default([]),
+  mining: z.array(MiningRunSchema).default([]),
   meta: z.object({
     createdAt: z.string(),
     lastModifiedAt: z.string(),

@@ -9,6 +9,7 @@ function migrate_v0_to_v1(data: AnyData): AppData {
     schemaVersion: 1,
     hangar: [],
     inventory: [],
+    mining: [],
     meta: {
       createdAt: new Date().toISOString(),
       lastModifiedAt: new Date().toISOString(),
