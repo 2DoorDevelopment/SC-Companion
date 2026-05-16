@@ -253,6 +253,45 @@ export const MissionFormSchema = z.object({
 })
 export type MissionFormValues = z.infer<typeof MissionFormSchema>
 
+// ── Crafting ──────────────────────────────────────────────────────────────────
+
+export const CraftingStatusSchema = z.enum(['planned', 'in_progress', 'completed'])
+export type CraftingStatus = z.infer<typeof CraftingStatusSchema>
+
+export const CRAFTING_STATUS_LABELS: Record<CraftingStatus, string> = {
+  planned: 'Planned',
+  in_progress: 'In Progress',
+  completed: 'Completed',
+}
+
+export const CraftingMaterialSchema = z.object({
+  name: z.string().min(1),
+  quantityNeeded: z.coerce.number().min(0),
+  quantityOwned: z.coerce.number().min(0),
+})
+export type CraftingMaterial = z.infer<typeof CraftingMaterialSchema>
+
+export const CraftingProjectSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().min(1),
+  quantity: z.number().min(1).default(1),
+  status: CraftingStatusSchema,
+  materials: z.array(CraftingMaterialSchema).default([]),
+  notes: z.string().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+})
+export type CraftingProject = z.infer<typeof CraftingProjectSchema>
+
+export const CraftingProjectFormSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  quantity: z.coerce.number().int().min(1, 'Must be at least 1'),
+  status: CraftingStatusSchema,
+  materials: z.array(CraftingMaterialSchema),
+  notes: z.string().optional(),
+})
+export type CraftingProjectFormValues = z.infer<typeof CraftingProjectFormSchema>
+
 export const AppDataSchema = z.object({
   schemaVersion: z.literal(1),
   exportedAt: z.string().optional(),
@@ -261,6 +300,7 @@ export const AppDataSchema = z.object({
   mining: z.array(MiningRunSchema).default([]),
   cargo: z.array(CargoEntrySchema).default([]),
   missions: z.array(MissionSchema).default([]),
+  crafting: z.array(CraftingProjectSchema).default([]),
   meta: z.object({
     createdAt: z.string(),
     lastModifiedAt: z.string(),

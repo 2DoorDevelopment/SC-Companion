@@ -14,6 +14,7 @@ function emptyAppData(): AppData {
     mining: [],
     cargo: [],
     missions: [],
+    crafting: [],
     meta: { createdAt: now, lastModifiedAt: now },
   }
 }
