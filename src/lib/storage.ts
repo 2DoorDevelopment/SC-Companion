@@ -12,6 +12,7 @@ function emptyAppData(): AppData {
     hangar: [],
     inventory: [],
     mining: [],
+    cargo: [],
     meta: { createdAt: now, lastModifiedAt: now },
   }
 }

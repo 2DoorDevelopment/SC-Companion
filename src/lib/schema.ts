@@ -132,12 +132,68 @@ export const MiningRunFormSchema = z.object({
 })
 export type MiningRunFormValues = z.infer<typeof MiningRunFormSchema>
 
+// ── Cargo / Trade ─────────────────────────────────────────────────────────────
+
+export const CargoStatusSchema = z.enum(['bought', 'sold'])
+export type CargoStatus = z.infer<typeof CargoStatusSchema>
+
+export const CARGO_STATUS_LABELS: Record<CargoStatus, string> = {
+  bought: 'Bought',
+  sold: 'Sold',
+}
+
+export const COMMON_COMMODITIES = [
+  'Agricultural Supplies', 'Aluminum', 'Astatine', 'Beryl', 'Biostics',
+  'Carbon', 'Chlorine', 'Compboard', 'Copper', 'Diamond', 'Distilled Spirits',
+  'Dolivine', 'Dymantium', 'E\'tam', 'Fluorine', 'Gold', 'Helium', 'Hydrogen',
+  'Laranite', 'Medical Supplies', 'Neon', 'Ostamine', 'Processed Food',
+  'Quantanium', 'Recycled Material Composite', 'Revenant Tree Pollen',
+  'Scrap', 'Stims', 'Taranite', 'Titanium', 'Tungsten', 'WiDoW',
+]
+
+export const CargoEntrySchema = z.object({
+  id: z.string().uuid(),
+  date: z.string(),
+  commodity: z.string().min(1),
+  ship: z.string().optional(),
+  quantitySCU: z.number().min(0),
+  buyLocation: z.string().min(1),
+  buyPricePerSCU: z.number().min(0),
+  status: CargoStatusSchema,
+  sellLocation: z.string().optional(),
+  sellPricePerSCU: z.number().optional(),
+  notes: z.string().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+})
+export type CargoEntry = z.infer<typeof CargoEntrySchema>
+
+export const CargoEntryFormSchema = z.object({
+  date: z.string().min(1, 'Date is required'),
+  commodity: z.string().min(1, 'Commodity is required'),
+  ship: z.string().optional(),
+  quantitySCU: z.coerce.number().min(0, 'Must be 0 or more'),
+  buyLocation: z.string().min(1, 'Buy location is required'),
+  buyPricePerSCU: z.coerce.number().min(0, 'Must be 0 or more'),
+  status: CargoStatusSchema,
+  sellLocation: z.string().optional(),
+  sellPricePerSCU: z.coerce.number().min(0).optional().or(z.literal('')),
+  notes: z.string().optional(),
+})
+export type CargoEntryFormValues = z.infer<typeof CargoEntryFormSchema>
+
+export function cargoProfit(entry: CargoEntry): number | null {
+  if (entry.status !== 'sold' || entry.sellPricePerSCU == null) return null
+  return (entry.sellPricePerSCU - entry.buyPricePerSCU) * entry.quantitySCU
+}
+
 export const AppDataSchema = z.object({
   schemaVersion: z.literal(1),
   exportedAt: z.string().optional(),
   hangar: z.array(ShipSchema),
   inventory: z.array(InventoryItemSchema).default([]),
   mining: z.array(MiningRunSchema).default([]),
+  cargo: z.array(CargoEntrySchema).default([]),
   meta: z.object({
     createdAt: z.string(),
     lastModifiedAt: z.string(),

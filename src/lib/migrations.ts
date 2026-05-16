@@ -10,6 +10,7 @@ function migrate_v0_to_v1(data: AnyData): AppData {
     hangar: [],
     inventory: [],
     mining: [],
+    cargo: [],
     meta: {
       createdAt: new Date().toISOString(),
       lastModifiedAt: new Date().toISOString(),

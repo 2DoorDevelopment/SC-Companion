@@ -173,6 +173,7 @@ export function SettingsPage() {
             hangar: [],
             inventory: [],
             mining: [],
+            cargo: [],
             meta: { createdAt: new Date().toISOString(), lastModifiedAt: new Date().toISOString() },
           })
         }}
