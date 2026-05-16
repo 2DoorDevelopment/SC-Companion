@@ -10,6 +10,11 @@ function emptyAppData(): AppData {
   return {
     schemaVersion: CURRENT_SCHEMA_VERSION,
     hangar: [],
+    inventory: [],
+    mining: [],
+    cargo: [],
+    missions: [],
+    crafting: [],
     meta: { createdAt: now, lastModifiedAt: now },
   }
 }
