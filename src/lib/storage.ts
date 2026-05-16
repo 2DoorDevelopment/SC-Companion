@@ -10,6 +10,7 @@ function emptyAppData(): AppData {
   return {
     schemaVersion: CURRENT_SCHEMA_VERSION,
     hangar: [],
+    inventory: [],
     meta: { createdAt: now, lastModifiedAt: now },
   }
 }

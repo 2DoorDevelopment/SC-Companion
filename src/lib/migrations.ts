@@ -8,6 +8,7 @@ function migrate_v0_to_v1(data: AnyData): AppData {
   return {
     schemaVersion: 1,
     hangar: [],
+    inventory: [],
     meta: {
       createdAt: new Date().toISOString(),
       lastModifiedAt: new Date().toISOString(),

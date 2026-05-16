@@ -7,7 +7,7 @@ import type { AppData } from '../../lib/schema'
 
 const NAV_ITEMS = [
   { label: 'HANGAR', path: '/hangar', enabled: true },
-  { label: 'INVENTORY', path: '/inventory', enabled: false },
+  { label: 'INVENTORY', path: '/inventory', enabled: true },
   { label: 'CRAFTING', path: '/crafting', enabled: false },
   { label: 'CARGO', path: '/cargo', enabled: false },
   { label: 'MINING', path: '/mining', enabled: false },

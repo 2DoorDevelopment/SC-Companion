@@ -171,6 +171,7 @@ export function SettingsPage() {
           update({
             schemaVersion: 1,
             hangar: [],
+            inventory: [],
             meta: { createdAt: new Date().toISOString(), lastModifiedAt: new Date().toISOString() },
           })
         }}

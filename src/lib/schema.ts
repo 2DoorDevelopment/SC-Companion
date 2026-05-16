@@ -20,10 +20,59 @@ export const ShipSchema = z.object({
 
 export type Ship = z.infer<typeof ShipSchema>
 
+export const ItemCategorySchema = z.enum([
+  'weapon',
+  'armor',
+  'component',
+  'consumable',
+  'resource',
+  'tool',
+  'apparel',
+  'misc',
+])
+export type ItemCategory = z.infer<typeof ItemCategorySchema>
+
+export const CATEGORY_LABELS: Record<ItemCategory, string> = {
+  weapon: 'Weapon',
+  armor: 'Armor',
+  component: 'Component',
+  consumable: 'Consumable',
+  resource: 'Resource',
+  tool: 'Tool',
+  apparel: 'Apparel',
+  misc: 'Misc',
+}
+
+export const InventoryItemSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().min(1),
+  category: ItemCategorySchema,
+  quantity: z.number().int().min(0).default(1),
+  location: z.string().default(''),
+  priceUEC: z.number().min(0).optional(),
+  notes: z.string().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+})
+
+export type InventoryItem = z.infer<typeof InventoryItemSchema>
+
+export const InventoryItemFormSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  category: ItemCategorySchema,
+  quantity: z.coerce.number().int().min(0, 'Must be 0 or more'),
+  location: z.string(),
+  priceUEC: z.coerce.number().min(0).optional().or(z.literal('')),
+  notes: z.string().optional(),
+})
+
+export type InventoryItemFormValues = z.infer<typeof InventoryItemFormSchema>
+
 export const AppDataSchema = z.object({
   schemaVersion: z.literal(1),
   exportedAt: z.string().optional(),
   hangar: z.array(ShipSchema),
+  inventory: z.array(InventoryItemSchema).default([]),
   meta: z.object({
     createdAt: z.string(),
     lastModifiedAt: z.string(),
